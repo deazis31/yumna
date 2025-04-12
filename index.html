@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yumna Sayur - Jual Beli Sayuran Segar</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f7f6;
+            color: #333;
+        }
+
+        /* Navbar Styles */
+        .navbar {
+            background-color: #2ecc71;
+            padding: 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .navbar .brand {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+        }
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            transition: background-color 0.3s;
+        }
+        .navbar a:hover {
+            background-color: #27ae60;
+            border-radius: 5px;
+        }
+        .navbar .hamburger {
+            display: none;
+            font-size: 1.5em;
+            color: white;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        /* Container Styles */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Welcome Section Styles */
+        .welcome-section {
+            text-align: center;
+            padding: 40px 20px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%); /* Subtle green background */
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+        }
+        .welcome-section h1 {
+            color: #1a3c34;
+            font-family: 'Poppins', sans-serif;
+            font-size: 3em;
+            font-weight: 700;
+            margin: 0 0 20px;
+            background: linear-gradient(45deg, #2ecc71, #27ae60); /* Fresh green gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+            animation: bounceIn 1.2s ease-out;
+        }
+        .welcome-section h3:first-of-type {
+            color: #34495e;
+            font-family: 'Lora', serif;
+            font-size: 1.6em;
+            font-weight: 400;
+            margin: 10px 0;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeSlide 1s ease-in-out 0.3s forwards;
+        }
+        .welcome-section h3:last-of-type {
+            color: #219653;
+            font-family: 'Lora', serif;
+            font-size: 1.4em;
+            font-style: italic; /* Italic for emphasis */
+            font-weight: 400;
+            margin: 10px 0;
+            letter-spacing: 0.5px;
+            opacity: 0;
+            animation: fadeSlide 1s ease-in-out 0.6s forwards;
+            border-top: 1px solid #c8e6c9; /* Subtle divider */
+            padding-top: 10px;
+            display: inline-block;
+        }
+
+        /* Animations */
+        @keyframes bounceIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            60% { opacity: 0.7; transform: scale(1.05); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+        @keyframes fadeSlide {
+            0% { opacity: 0; transform: translateY(15px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Import Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Lora:ital,wght@0,400;1,400&display=swap');
+
+        /* Card Container Styles */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card img {
+            max-width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .card h3 {
+            margin: 10px 0;
+            color: #2c3e50;
+        }
+        .card p {
+            color: #7f8c8d;
+            font-weight: bold;
+        }
+        .card input {
+            width: 60px;
+            margin: 10px 0;
+            padding: 6px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        /* Total Styles */
+        #total {
+            font-size: 1.3em;
+            font-weight: bold;
+            margin: 30px 0;
+            color: #e74c3c;
+            text-align: center;
+        }
+
+        /* Contact Form Styles */
+        #pesan {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        #pesan h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        #pesan input, #pesan textarea {
+            width: 100%;
+            margin: 15px 0;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        #pesan textarea {
+            height: 100px;
+        }
+        button {
+            background-color: #25D366;
+            color: white;
+            padding: 12px 25px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #1ebe56;
+        }
+
+        /* Mobile Responsiveness */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background-color: #2ecc71;
+                padding: 10px 0;
+            }
+            .navbar .nav-links.active {
+                display: flex;
+            }
+            .navbar .hamburger {
+                display: block;
+            }
+            .navbar a {
+                padding: 10px 20px;
+                width: 100%;
+                text-align: center;
+            }
+            .card-container {
+                grid-template-columns: 1fr;
+            }
+            .welcome-section h1 {
+                font-size: 2em;
+            }
+            .welcome-section h3:first-of-type {
+                font-size: 1.3em;
+            }
+            .welcome-section h3:last-of-type {
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="container">
+            <a href="#" class="brand">Yumna Sayur</a>
+            <div class="hamburger">☰</div>
+            <div class="nav-links">
+                <a href="#beranda">Beranda</a>
+                <a href="#produk">Produk</a>
+                <a href="#pesan">Pesan ke Pedagang</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container" id="beranda">
+        <div class="welcome-section">
+            <h1>Selamat Datang di Yumna Sayur</h1>
+            <h3>Lengkapi Kebutuhan Makanan Anda Bersama Yumna Sayur</h3>
+            <h3>Yumna Sayur Membeli Sayuran Lebih Mudah</h3>
+        </div>
+        
+        <div class="card-container" id="produk">
+            <div class="card">
+                <img src="bayam.jpeg" alt="Bayam">
+                <h3>Bayam</h3>
+                <p>Rp <span class="price">5000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="kol.jpeg" alt="Kol">
+                <h3>Kol</h3>
+                <p>Rp <span class="price">7000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="wortel.jpeg" alt="Wortel">
+                <h3>Wortel</h3>
+                <p>Rp <span class="price">6000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="cabai.jpeg" alt="Cabei">
+                <h3>Cabei</h3>
+                <p>Rp <span class="price">15000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="gula pasir.jpeg" alt="Gula Pasir">
+                <h3>Gula Pasir</h3>
+                <p>Rp <span class="price">18000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="lengkuas.jpeg" alt="Lengkuas">
+                <h3>Lengkuas</h3>
+                <p>Rp <span class="price">1000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="bawangm.jpeg" alt="Bawang Merah">
+                <h3>Bawang Merah</h3>
+                <p>Rp <span class="price">17000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="bawangp.jpeg" alt="Bawang Putih">
+                <h3>Bawang Putih</h3>
+                <p>Rp <span class="price">12000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="bumbu dapur.jpeg" alt="Bumbu Dapur">
+                <h3>Bumbu Dapur</h3>
+                <p>Rp <span class="price">12000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="beras.jpeg" alt="Beras">
+                <h3>Beras</h3>
+                <p>Rp <span class="price">12000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="Tahu.jpeg" alt="Tahu">
+                <h3>Tahu</h3>
+                <p>Rp <span class="price">12000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="Tempe.jpeg" alt="Tempe">
+                <h3>Tempe</h3>
+                <p>Rp <span class="price">12000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            
+            <div class="card">
+                <img src="telur.jpeg" alt="Telur">
+                <h3>Telor</h3>
+                <p>Rp <span class="price">25000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="mei.jpeg" alt="Mie">
+                <h3>Mie</h3>
+                <p>Rp <span class="price">5300</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="bihun.jpeg" alt="Bihun">
+                <h3>Bihun</h3>
+                <p>Rp <span class="price">15000</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+            <div class="card">
+                <img src="roiko.jpeg" alt="Royco">
+                <h3>Royco</h3>
+                <p>Rp <span class="price">500</span></p>
+                <input type="number" class="quantity" min="0" value="0" onchange="calculateTotal()">
+            </div>
+        </div>
+
+        <div id="total">Total: Rp 0</div>
+
+        <div id="pesan">
+            <h2>Pesan Sekarang</h2>
+            <input type="text" id="customerName" placeholder="Nama Pelanggan">
+            <textarea id="customerAddress" placeholder="Alamat Pelanggan Lengkap"></textarea>
+            <textarea id="additionalRequest" placeholder="Pesan Tambahan (misal: tambah kecap 2 biji)"></textarea>
+            <button onclick="sendToWhatsApp()">Pesan via WhatsApp</button>
+        </div>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            let total = 0;
+            const cards = document.querySelectorAll('.card');
+            
+            cards.forEach(card => {
+                const priceElement = card.querySelector('.price');
+                const quantityElement = card.querySelector('.quantity');
+                
+                if (priceElement && quantityElement) {
+                    const price = parseInt(priceElement.textContent) || 0;
+                    const quantity = parseInt(quantityElement.value) || 0;
+                    total += price * quantity;
+                } else {
+                    console.error('Price or quantity element not found in card:', card);
+                }
+            });
+
+            document.getElementById('total').textContent = `Total: Rp ${total.toLocaleString('id-ID')}`;
+            return total;
+        }
+
+        function sendToWhatsApp() {
+            const name = document.getElementById('customerName').value || '';
+            const address = document.getElementById('customerAddress').value || '';
+            const additionalRequest = document.getElementById('additionalRequest').value || '';
+            let message = `*Pesanan Yumna Sayur*\n\n`;
+            let hasItems = false;
+
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                const itemName = card.querySelector('h3').textContent;
+                const priceElement = card.querySelector('.price');
+                const quantityElement = card.querySelector('.quantity');
+
+                if (priceElement && quantityElement) {
+                    const price = parseInt(priceElement.textContent) || 0;
+                    const quantity = parseInt(quantityElement.value) || 0;
+
+                    if (quantity > 0) {
+                        message += `${itemName}: ${quantity} x Rp ${price.toLocaleString('id-ID')} = Rp ${(price * quantity).toLocaleString('id-ID')}\n`;
+                        hasItems = true;
+                    }
+                } else {
+                    console.error('Price or quantity element missing in card:', card);
+                }
+            });
+
+            if (!hasItems) {
+                message += "Tidak ada barang yang dipesan.\n";
+            }
+
+            const total = calculateTotal();
+            message += `\n*Total: Rp ${total.toLocaleString('id-ID')}*`;
+            message += `\n\nNama: ${name}`;
+            message += `\nAlamat: ${address}`;
+            if (additionalRequest) {
+                message += `\nPesan Tambahan: ${additionalRequest}`;
+            }
+
+            const whatsappNumber = "6287875077368";
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+            window.open(whatsappUrl, '_blank');
+        }
+
+        // Fungsi untuk scroll ke bagian pesan
+        document.querySelector('a[href="#pesan"]').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('pesan').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // Toggle hamburger menu
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+    </script>
+</body>
+</html>
